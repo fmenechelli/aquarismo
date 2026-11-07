@@ -7,13 +7,15 @@ interface SpeciesModalProps {
   onClose: () => void;
   onToggleTank: (species: Species) => void;
   isInTank: boolean;
+  onNavigateToNutrition?: () => void;
 }
 
 export function SpeciesModal({
   species,
   onClose,
   onToggleTank,
-  isInTank
+  isInTank,
+  onNavigateToNutrition
 }: SpeciesModalProps) {
   const [imgError, setImgError] = useState(false);
 
@@ -258,6 +260,21 @@ export function SpeciesModal({
                 <p className="mt-3 text-xs leading-relaxed text-[#94a3b8]">
                   {fish.reproductionNotes}
                 </p>
+                {onNavigateToNutrition && (
+                  <div className="mt-3 pt-2.5 border-t border-[#1a2c40]/60">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigateToNutrition();
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs text-[#00f0ff] hover:underline"
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      <span>Ver tipos de ração e receitas de patê caseiro para esta espécie &rarr;</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}

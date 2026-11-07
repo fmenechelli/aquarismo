@@ -7,6 +7,7 @@ import { AquariumPlanner } from './components/AquariumPlanner';
 import { BiotopeGuide } from './components/BiotopeGuide';
 import { ParameterQuickRef } from './components/ParameterQuickRef';
 import { CyclingGuide } from './components/CyclingGuide';
+import { FishFoodGuide } from './components/FishFoodGuide';
 import {
   Search,
   Filter,
@@ -20,7 +21,7 @@ import {
 } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'catalog' | 'planner' | 'biotopes' | 'parameters'>('catalog');
+  const [activeTab, setActiveTab] = useState<'catalog' | 'planner' | 'biotopes' | 'parameters' | 'nutrition'>('catalog');
   const [parameterSubTab, setParameterSubTab] = useState<'cycling' | 'chemistry' | 'both'>('cycling');
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'fish' | 'plant'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -196,6 +197,15 @@ export default function App() {
             </button>
             <button
               type="button"
+              onClick={() => setActiveTab('nutrition')}
+              className={`hover:text-[#f0f4f8] transition-colors whitespace-nowrap shrink-0 ${
+                activeTab === 'nutrition' ? 'text-[#00f0ff] font-semibold' : ''
+              }`}
+            >
+              Alimentação & Rações
+            </button>
+            <button
+              type="button"
               onClick={() => setActiveTab('biotopes')}
               className={`hover:text-[#f0f4f8] transition-colors whitespace-nowrap shrink-0 ${
                 activeTab === 'biotopes' ? 'text-[#00f0ff] font-semibold' : ''
@@ -210,7 +220,7 @@ export default function App() {
                 activeTab === 'parameters' ? 'text-[#00f0ff] font-semibold' : ''
               }`}
             >
-              Parâmetros & Ciclagem
+              Ciclagem & Parâmetros
             </button>
           </nav>
 
@@ -278,6 +288,17 @@ export default function App() {
               }`}
             >
               Plantas
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('nutrition')}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium whitespace-nowrap ${
+                activeTab === 'nutrition'
+                  ? 'bg-[#00f0ff]/20 text-[#00f0ff]'
+                  : 'text-[#94a3b8]'
+              }`}
+            >
+              Rações & Receitas
             </button>
             <button
               type="button"
@@ -542,6 +563,9 @@ export default function App() {
             )}
           </div>
         )}
+
+        {/* Tab 5: Fish Food Guide & Homemade Recipes */}
+        {activeTab === 'nutrition' && <FishFoodGuide />}
       </main>
 
       {/* Detail Modal */}
@@ -550,6 +574,7 @@ export default function App() {
         onClose={() => setSelectedSpeciesForModal(null)}
         onToggleTank={(s) => toggleTankItem(s)}
         isInTank={selectedSpeciesForModal ? isSpeciesInTank(selectedSpeciesForModal.id) : false}
+        onNavigateToNutrition={() => setActiveTab('nutrition')}
       />
 
       {/* Footer */}
@@ -590,6 +615,16 @@ export default function App() {
             <button
               type="button"
               onClick={() => {
+                setActiveTab('nutrition');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="hover:text-[#f0f4f8]"
+            >
+              Alimentação & Rações
+            </button>
+            <button
+              type="button"
+              onClick={() => {
                 setActiveTab('biotopes');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
@@ -605,7 +640,7 @@ export default function App() {
               }}
               className="hover:text-[#f0f4f8]"
             >
-              Parâmetros da Água
+              Ciclagem & Parâmetros
             </button>
           </div>
         </div>
