@@ -1,0 +1,6 @@
+{
+  "name": "Aquafilia - Aquarismo de Água Doce",
+  "description": "Landing page moderna e minimalista dedicada ao aquarismo de água doce, apresentando espécies de peixes e flora aquática com parâmetros técnicos essenciais.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
